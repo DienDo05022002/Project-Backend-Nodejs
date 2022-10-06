@@ -101,4 +101,27 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json(error);
   }
 });
+// SEARCH BY NAME
+const searchByNameSchema = yup.object({
+  query: yup.object({
+    text: yup.string().required(),
+  }),
+});
+router.get('/search/name', validateSchema(searchByNameSchema), function (req, res) {
+  const { text } = req.query;
+  const query = { name: new RegExp(`${text}`) };
+  const sort = { name: -1 };
+  const limit = 50;
+  const skip = 1;
+  const project = {};
+
+  findDocuments(query, COLLECTION_NAME, sort, limit, [], skip, project)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json(error);
+    });
+});
 module.exports = router;

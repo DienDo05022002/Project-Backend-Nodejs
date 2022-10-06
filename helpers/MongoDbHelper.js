@@ -5,7 +5,6 @@ const { MongoClient, ObjectId } = require('mongodb');
 // Chuỗi kết nối đến MongoDB
 const DATABASE_NAME = 'online-shop';
 const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/' + DATABASE_NAME;
-
 // INSERT: Thêm mới (một)
 function insertDocument(data, customers) {
   return new Promise((resolve, reject) => {
@@ -223,5 +222,7 @@ function findDocuments({ query = null, sort = null, limit = 50, aggregate = [], 
       });
   });
 }
+
+
 
 module.exports = { insertDocument, insertDocuments, updateDocument, updateDocuments, deleteDocument, deleteDocuments, findDocument, findDocuments };
